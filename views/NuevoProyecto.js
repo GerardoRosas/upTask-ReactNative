@@ -13,6 +13,16 @@ const NUEVO_PROYECTO = gql`
     }
 `;
 
+//Actualizamos el caché
+const OBTENER_PROYECTOS = gql`
+    query obtenerProyectos{
+        obtenerProyectos{
+            id
+            nombre
+        }
+    }
+`;
+
 //Estilos globales
 import globalStyles from '../styles/Global';
 
@@ -27,7 +37,16 @@ const NuevoProyecto = () => {
     const [nombre, guardarNombre ] = useState('');
 
     //Apollo
-    const [ nuevoProyecto ] = useMutation(NUEVO_PROYECTO);
+    const [ nuevoProyecto ] = useMutation(NUEVO_PROYECTO, {
+        //Se actualiza el cache 
+        update(cache, { data : { nuevoProyecto }}){
+            const {obtenerProyectos} = cache.readQuery({query: OBTENER_PROYECTOS});
+            cache.writeQuery({
+                query: OBTENER_PROYECTOS,
+                data: {obtenerProyectos: obtenerProyectos.concat([nuevoProyecto])}
+            })
+        }
+    });
 
     //Muestra un mensaje Toast
     const mostrarAlerta = () => {
