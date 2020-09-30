@@ -26,13 +26,9 @@ const Proyectos = () => {
     //Error: en caso de tener un error
     const { data, loading, error } = useQuery(OBTENER_PROYECTOS);
 
-    console.log(data);
-    console.log(loading);
-    console.log(error);
-
     return (  
         
-        <Container style={[globalStyles.contenedor], {backgroundColor: '#E84347'}}>
+        <Container style={[globalStyles.contenedor, {backgroundColor: '#E84347'}]}>
             <Button
                 style={[globalStyles.boton, {marginTop: 30}]}
                 square

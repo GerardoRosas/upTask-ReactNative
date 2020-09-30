@@ -83,7 +83,8 @@ const Login = () => {
                     <Item inlineLabel last style={globalStyles.input}>
                         <Input
                             placeholder="Email"
-                            onChangeText={ texto => guardarEmail(texto)}
+                            onChangeText={ texto => guardarEmail(texto.toLowerCase())}
+                            value={email}
                         />
                     </Item>
                     <Item inlineLabel last style={globalStyles.input}>
